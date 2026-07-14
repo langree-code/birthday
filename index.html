@@ -7,22 +7,21 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            height: 100%;
-            overflow: hidden;
+        html, body {
+            height: auto;
+            min-height: 100%;
+            overflow: visible;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            min-height: 100dvh;
-            overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             position: relative;
         }
 
         .scroll-wrapper {
-            min-height: 100dvh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -62,6 +61,7 @@
             width: 92%;
             text-align: center;
             backdrop-filter: blur(10px);
+            overflow: hidden;
             overflow: hidden;
             margin: 20px auto;
             min-height: 400px;
