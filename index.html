@@ -360,8 +360,9 @@
             <h1>Когда мы сможем отметить эту прекрасную дату?</h1>
             <p class="subtitle">Выбери день, и я всё организую 🎀</p>
             <div class="divider"></div>
-            <div class="form-group">
-                <input type="date" name="Дата" id="datePicker" style="cursor:pointer;text-align:center;font-size:18px;padding:16px;max-width:100%;box-sizing:border-box;">
+            <div style="text-align:center;">
+                <input type="date" name="Дата" id="datePicker" value="" style="position:absolute;opacity:0;pointer-events:none;width:0;height:0;">
+                <button type="button" id="dateDisplay" class="next-btn small" style="font-size:20px;padding:16px 40px;width:auto;display:inline-block;margin-top:0;">📅 14 июля</button>
             </div>
             <div style="margin-top:8px;">
                 <button class="next-btn small" id="toStep3">Дальше 💫</button>
@@ -577,17 +578,29 @@
 
         // === Step 2: Date ===
         const datePicker = document.getElementById('datePicker');
+        const dateDisplay = document.getElementById('dateDisplay');
         const toStep3 = document.getElementById('toStep3');
 
-        datePicker.addEventListener('change', function() {
-            state.date = this.value;
-        });
-
-        // Set min date to today
         const today = new Date().toISOString().split('T')[0];
         datePicker.min = today;
         datePicker.value = today;
         state.date = today;
+
+        const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+        function formatDate(d) {
+            const dd = new Date(d + 'T00:00:00');
+            return dd.getDate() + ' ' + months[dd.getMonth()];
+        }
+        dateDisplay.textContent = '📅 ' + formatDate(today);
+
+        dateDisplay.addEventListener('click', function() {
+            datePicker.showPicker ? datePicker.showPicker() : datePicker.click();
+        });
+
+        datePicker.addEventListener('change', function() {
+            state.date = this.value;
+            dateDisplay.textContent = '📅 ' + formatDate(this.value);
+        });
 
         toStep3.addEventListener('click', () => goToStep(3));
 
